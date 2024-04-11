@@ -1,0 +1,6 @@
+1; Cliente=PEPE;Date=2024-03-14T10:50:27.364576;
+1;Products=Manzana,20.0;1;Products=Pera,40.0;1;Products=Hamburguesa,60.0;1;Products=Fresa,10.0;1;Products=Manzana,20.0;1;Products=Pan,4.0;1;Products=Coco,40.0;
+1;Amount=149.76;
+2; Cliente=PaCIO;Date=2024-03-14T10:51:04.726404;
+2;Products=Manzana,20.0;2;Products=Pera,40.0;2;Products=Hamburguesa,60.0;2;Products=Fresa,10.0;2;Products=Manzana,20.0;2;Products=Pan,4.0;2;Products=Coco,40.0;
+2;Amount=124.80000000000001;
