@@ -28,7 +28,7 @@ public class Shop {
 	private ArrayList<Product> inventory;
 	private int numberProducts;
 	private ArrayList<Sale> sales;
-	
+	private boolean errorMethot = true;
 	final static double TAX_RATE = 1.04;
 	//create a new variable to count the sales of the shop.
 	private int countSales;
@@ -79,11 +79,11 @@ public class Shop {
 				break;
 
 			case 2:
-				shop.addNewProduct();
+				shop.addNewProduct(null, opcion, opcion);
 				break;
 
 			case 3:
-				shop.addStock();
+				shop.addStock(null, opcion);
 				break;
 
 			case 4:
@@ -106,7 +106,7 @@ public class Shop {
 				shop.showAmountVentas();
 				break;
 			case 9:
-				shop.deleteProduct();
+				shop.deleteProduct(null);
 				break;
 			// Change case 8 for case 10. [CORRECTION]
 			case 10:
@@ -132,7 +132,7 @@ public class Shop {
 		
 	}
 	// Read inventory file or create a new one if not exist
-	private void readFileInventory() {
+	public void readFileInventory() {
 		int count = 0;
 		boolean exit = false;
 		String x = null; String y = null; String z = null;
@@ -256,66 +256,79 @@ public class Shop {
 	 * show current total cash 
 	 */
 	
-	// Show total cash [CORRECTION]
-	private void showCash() {
-		System.out.println("Dinero actual: "+ cash.toString());
+	// Show total cash [CORRECTION] Change to return String
+	public String showCash() {
+		String cashValue = cash.toString();
+		return cashValue;
 	}
 
 	/**
 	 * add a new product to inventory getting data from console
+	 * @return 
 	 */
 	
 	// changed the name of methot [CORRECTION]
-	public void addNewProduct() {
-		
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Nombre: ");
-		String name = scanner.nextLine();
-		
+	public boolean addNewProduct(String name, int stock, double price) {
+		/*
+		* Scanner scanner = new Scanner(System.in);
+		* System.out.print("Nombre: ");
+		* String name = scanner.nextLine();
+		*/
 		// check if name exist if not return nothing [CORRECTION]
 		Product product = findProduct(name);
 			if(product != null){
-				System.out.println("The product alredy exists");
-				return;
+				//System.out.println("The product alredy exists");
+				errorMethot = false;
+			}else {
+				errorMethot = true;
+				addProduct(new Product(name, price, true, stock));
+				
+				writeNewInventory();
 			}
-		//
-		System.out.print("Precio mayorista: ");
-		double wholesalerPrice = scanner.nextDouble();
-		System.out.print("Stock: ");
-		int stock = scanner.nextInt();
-
-		addProduct(new Product(name, wholesalerPrice, true, stock));
+		/*
+		*	System.out.print("Precio mayorista: ");
+		*	double wholesalerPrice = scanner.nextDouble();
+		*	System.out.print("Stock: ");
+		*	int stock = scanner.nextInt();
+		 */
 		
-		writeNewInventory();
+		return errorMethot;
 	}
 
 	/**
 	 * add stock for a specific product
 	 */
-	public void addStock() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Seleccione un nombre de producto: ");
-		String name = scanner.next();
+	public boolean addStock(String name, int stock) {
+		/*
+		* Scanner scanner = new Scanner(System.in);
+		* System.out.print("Seleccione un nombre de producto: ");
+		* String name = scanner.next();
+		*/
 		Product product = findProduct(name);
 
-		if ((product != null)) {
+		if (product != null) {
 		//make available if stock = 0 [CORRECTION]
 			if(product.getStock() == 0) {
 				product.setAvailable(true);
 			}
-			// ask for stock
-			//System.out.println(product.getStock()); Stock after change
-			System.out.print("Seleccione la cantidad a añadir: ");
-			int stock = scanner.nextInt();
-			// update stock product
+		// ask for stock
+		//System.out.println(product.getStock()); Stock after change
+			/*
+			* System.out.print("Seleccione la cantidad a añadir: ");
+			* int stock = scanner.nextInt();
+			*/
+		// update stock product
 		//plus the stock that you write [CORRECTION]
 			product.setStock(product.getStock() + stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
 			writeNewInventory();
+			errorMethot = true;
 			//System.out.println(product.getStock()); Stock before change
 		} else {
-			System.out.println("No se ha encontrado el producto con nombre " + name);
+			//System.out.println("No se ha encontrado el producto con nombre " + name);
+			errorMethot = false;
 		}
+		return errorMethot;
 	}
 
 	/**
@@ -332,6 +345,7 @@ public class Shop {
 			//use methot expire() [CORRECTION]
 			product.expire();
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getPublicPrice());
+			writeNewInventory();
 		}
 	}
 
@@ -372,7 +386,10 @@ public class Shop {
 		String name = "";
 		while (!name.equals("0")) {
 // show the list of products [CORRECTION]
-			showInventory();
+			for (int i=0;i<inventory.size();i++) {
+			      
+			      System.out.println(inventory.get(i));
+			    }
 			System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
 			name = sc.nextLine();
 			
@@ -465,25 +482,29 @@ public class Shop {
 		
 	}
 // method delete product.	
-	public void deleteProduct() {
-		
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Seleccione un nombre de producto: ");
-		String name = scanner.next();
+	public boolean deleteProduct(String name) {
+		/*
+		* Scanner scanner = new Scanner(System.in);
+		* System.out.print("Seleccione un nombre de producto: ");
+		* String name = scanner.next();
+		*/
 		Product product = findProduct(name);
 		
 		if(product != null) {
 			for (int i=0;i<inventory.size();i++) {
 				if (product != null) {
 					inventory.remove(product);
+					System.out.println(product.getName()+" was deleted");
+					//Rewrite the inventory without the product
+					writeNewInventory();
+					errorMethot = true;
 				}
 			}
-			System.out.println(product.getName()+" was deleted");
-			//Rewrite the inventory without the product
-			writeNewInventory();
 		}else {
 			System.out.println("This product not exists");
+			errorMethot = false;
 		}
+		return errorMethot;
 	}
 	
 	

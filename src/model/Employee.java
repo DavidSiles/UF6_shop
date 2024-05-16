@@ -19,12 +19,11 @@ public class Employee extends Person {
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
-
 	
 	public boolean login(int user, String password) {
     	
         if (user == USER && password.equals(PASSWORD)) {
-        	System.out.println("User "+user+" logged");
+        	System.out.println("UserID "+user+" logged");
             return true;
         } else {
         	System.out.println("ERROR, wrong dates");
