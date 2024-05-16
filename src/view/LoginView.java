@@ -107,6 +107,13 @@ public class LoginView extends JFrame implements ActionListener {
                     "Se han excedido el límite de intentos de inicio de sesión.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
 	        System.exit(0);
+	    } catch (NumberFormatException ex) {
+	        // Manejo de la excepción
+	        ex.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+					"ERROR: data is wrong",
+					"Error de Inserción", JOptionPane.ERROR_MESSAGE);
+	        System.exit(0);
 	    }
 	}
 	
