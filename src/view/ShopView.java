@@ -55,21 +55,29 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		countCageButton.setBounds(30, 40, 250, 50);
 		contentPane.add(countCageButton);
 		countCageButton.addActionListener(this);
+		countCageButton.addKeyListener(this);
+		countCageButton.setFocusable(false);
 		
 		addNewProductButton = new JButton("2.Add new product");
 		addNewProductButton.setBounds(30, 100, 250, 50);
 		contentPane.add(addNewProductButton);
 		addNewProductButton.addActionListener(this);
+		addNewProductButton.addKeyListener(this);
+		addNewProductButton.setFocusable(false);
 		
 		addStockButton = new JButton("3.Add stock");
 		addStockButton.setBounds(30, 160, 250, 50);
 		contentPane.add(addStockButton);
 		addStockButton.addActionListener(this);
+		addStockButton.addKeyListener(this);
+		addStockButton.setFocusable(false);
 		
 		deleteProductButton = new JButton("9.Delete product");
 		deleteProductButton.setBounds(30, 220, 250, 50);
 		contentPane.add(deleteProductButton);
 		deleteProductButton.addActionListener(this);
+		deleteProductButton.addKeyListener(this);
+		deleteProductButton.setFocusable(false);
 		
 	}
 	
@@ -109,18 +117,28 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	public void keyPressed(KeyEvent ex) {
 		int keyCode = ex.getKeyCode();
 	    System.out.println("Tecla presionada: " + keyCode);
+	    ProductView addproductView = new ProductView();
+	    if(keyCode == 49) {
+	    	option = 1;
+	    }else if(keyCode == 50) {
+	    	option = 2;
+	    }else if(keyCode == 51) {
+	    	option = 3;
+	    }else if(keyCode == 57) {
+	    	option = 9;
+	    }
 	    switch (keyCode) {
 	        case KeyEvent.VK_1:
-	            countCageButton.doClick(); // Ejecuta el actionPerformed del botón countCageButton
+	        	openCashView(option, shop);
 	            break;
 	        case KeyEvent.VK_2:
-	            addNewProductButton.doClick(); // Ejecuta el actionPerformed del botón addNewProductButton
+	        	addproductView.openProductView(option, shop);
 	            break;
 	        case KeyEvent.VK_3:
-	            addStockButton.doClick(); // Ejecuta el actionPerformed del botón addStockButton
+	        	addproductView.openProductView(option, shop);
 	            break;
 	        case KeyEvent.VK_9:
-	            deleteProductButton.doClick(); // Ejecuta el actionPerformed del botón deleteProductButton
+	        	addproductView.openProductView(option, shop);
 	            break;
 	        default:
 	            // Si se presiona una tecla diferente, no hace nada

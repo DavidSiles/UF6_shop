@@ -93,6 +93,8 @@ public class LoginView extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this,
 						"ERROR: data is wrong",
 						"Error de Inserción", JOptionPane.ERROR_MESSAGE);
+				textField.setText("");
+				textField_1.setText("");
 				loginAttempts += 1;
 				if (loginAttempts > 2) {
                     throw new LimitLoginException();
