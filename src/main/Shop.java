@@ -560,7 +560,7 @@ public class Shop {
 			System.out.println("Password: ");
 			String password = sc.next();
 			
-			Employee employee = new Employee(user, iduser);
+			Employee employee = new Employee(iduser, password);
 			
 			logged = employee.login(iduser, password);
 			

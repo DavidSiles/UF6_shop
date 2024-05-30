@@ -1,15 +1,20 @@
 package model;
 
+import java.sql.SQLException;
+
+import dao.DaoImplJDBC;
+
 public class Employee extends Person {
 
 	private int employeeId;
 	
 	final static int USER = 123;
-    final static String PASSWORD = "test";
+    private String password = "test";
 
-	public Employee(String name, int employeeId) {
-		super(name);
+	public Employee(int employeeId, String password) {
+		super(password);
 		this.employeeId = employeeId;
+		this.password = password;
 	}
 
 	public int getEmployeeId() {
@@ -22,12 +27,20 @@ public class Employee extends Person {
 	
 	public boolean login(int user, String password) {
     	
-        if (user == USER && password.equals(PASSWORD)) {
-        	System.out.println("UserID "+user+" logged");
-            return true;
-        } else {
-        	System.out.println("ERROR, wrong dates");
-            return false;
+        DaoImplJDBC dao = new DaoImplJDBC();
+        
+        dao.connect();
+        System.out.println("Conectado");
+        Employee employee = dao.getEmployee(user, password);
+        try {
+			dao.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        if(employee == null) {
+        	return false;
+        }else{
+        	return true;
         }
     }
     
