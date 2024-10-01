@@ -198,25 +198,17 @@ public class Shop {
 	
 	// Write new products to file inventory.txt
 	public void writeNewInventory() {
-		boolean isWrited = false;
-		try {
-			File fileInventory = new File("inputInventory.txt");
-			FileWriter myWriter = new FileWriter("inputInventory.txt"); 
-			if(fileInventory.exists()) {		
-				for (Product product : inventory) {
-	    			if (product != null) {
-	    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
-	    			+product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n");  
-	    			}
-				}        			        		
-    System.out.println("File inventory finished");
-    myWriter.close();
-    isWrited = true;
-			}
-		} catch (IOException e) {
-            System.out.println("Error: Archivo no encontrado");
-            e.printStackTrace();
-        }
+		/*
+		 * boolean isWrited = false; try { File fileInventory = new
+		 * File("inputInventory.txt"); FileWriter myWriter = new
+		 * FileWriter("inputInventory.txt"); if(fileInventory.exists()) { for (Product
+		 * product : inventory) { if (product != null) {
+		 * myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
+		 * +product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n"); } }
+		 * System.out.println("File inventory finished"); myWriter.close(); isWrited =
+		 * true; } } catch (IOException e) {
+		 * System.out.println("Error: Archivo no encontrado"); e.printStackTrace(); }
+		 */
 	}
 	// write the new sales in the fileSales
 	private void updateFileSales() {

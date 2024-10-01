@@ -27,6 +27,8 @@ public class DaoImplFile implements Dao{
 
 	
 	public ArrayList<Product> getInventory() {
+		
+		ArrayList<Product> inventoryLoader = new ArrayList<Product>();
 		int count = 0;
 		boolean exit = false;
 		String x = null; String y = null; String z = null;
@@ -56,7 +58,7 @@ public class DaoImplFile implements Dao{
 		            	}
 		            	double price = Double.parseDouble(y);
 		            	int stock = Integer.parseInt(z);
-		            	addProduct(new Product(x, price, true, stock));
+		            	inventoryLoader.add(new Product(x, price, true, stock));
 		            	count = 0;
             		}else {
             			exit = true;
@@ -64,8 +66,8 @@ public class DaoImplFile implements Dao{
 				}
 	            	fr.close();
 	        		br.close();
-			/*
-			 }else if(fileInventory.createNewFile()) {
+			
+			 /*}else if(fileInventory.createNewFile()) {
             	System.out.println("File created: " + fileInventory.getName());
             	//load inventory products to add to inputInventory.txt
             	loadInventory();
@@ -79,12 +81,14 @@ public class DaoImplFile implements Dao{
                 System.out.println("File inventory finished");
                 myWriter.close();
                 getInventory();
-            }
-            */
+            }*/
+            
         } catch (IOException e) {
             System.out.println("Error: Archivo no encontrado");
             e.printStackTrace();
         }
+		
+		return inventoryLoader;
 
 	}
 
