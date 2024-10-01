@@ -52,32 +52,40 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		contentPane.add(textLabel);
 		
 		countCageButton = new JButton("1.Count cage");
-		countCageButton.setBounds(30, 40, 250, 50);
+		countCageButton.setBounds(251, 51, 150, 50);
 		contentPane.add(countCageButton);
 		countCageButton.addActionListener(this);
 		countCageButton.addKeyListener(this);
 		countCageButton.setFocusable(false);
 		
 		addNewProductButton = new JButton("2.Add new product");
-		addNewProductButton.setBounds(30, 100, 250, 50);
+		addNewProductButton.setBounds(30, 125, 150, 50);
 		contentPane.add(addNewProductButton);
 		addNewProductButton.addActionListener(this);
 		addNewProductButton.addKeyListener(this);
 		addNewProductButton.setFocusable(false);
 		
 		addStockButton = new JButton("3.Add stock");
-		addStockButton.setBounds(30, 160, 250, 50);
+		addStockButton.setBounds(251, 125, 150, 50);
 		contentPane.add(addStockButton);
 		addStockButton.addActionListener(this);
 		addStockButton.addKeyListener(this);
 		addStockButton.setFocusable(false);
 		
 		deleteProductButton = new JButton("9.Delete product");
-		deleteProductButton.setBounds(30, 220, 250, 50);
+		deleteProductButton.setBounds(30, 202, 250, 50);
 		contentPane.add(deleteProductButton);
 		deleteProductButton.addActionListener(this);
 		deleteProductButton.addKeyListener(this);
 		deleteProductButton.setFocusable(false);
+		
+		JButton btnNewButton = new JButton("0.Print Inventory");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(30, 51, 150, 50);
+		contentPane.add(btnNewButton);
 		
 	}
 	

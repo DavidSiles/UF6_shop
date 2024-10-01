@@ -20,7 +20,6 @@ public class CashView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField cashField;
-	private Object shop;
 	
 	/**
 	 * Create the dialog.

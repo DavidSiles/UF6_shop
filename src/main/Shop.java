@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import dao.DaoImplFile;
+
 public class Shop {
 	private Amount cash = new Amount(100.00);
 	private ArrayList<Product> inventory;
@@ -32,6 +34,7 @@ public class Shop {
 	final static double TAX_RATE = 1.04;
 	//create a new variable to count the sales of the shop.
 	private int countSales;
+	private DaoImplFile dao = new DaoImplFile();
 	
 	public Shop() {
 		// cash = 0.0; initial cash = 100.00 [CORRECTION]
@@ -141,7 +144,8 @@ public class Shop {
         	//create file
 			File fileInventory = new File("inputInventory.txt");
 			if(fileInventory.exists()) {
-				FileReader fr = new FileReader("inputInventory.txt");
+				dao.getInventory();
+				/* FileReader fr = new FileReader("inputInventory.txt");
 				BufferedReader br = new BufferedReader(fr);
 				while(exit == false) {
             		String myLine = br.readLine();
@@ -167,7 +171,7 @@ public class Shop {
             		}
 				}
 	            	fr.close();
-	        		br.close();
+	        		br.close(); */
 			}else if(fileInventory.createNewFile()) {
             	System.out.println("File created: " + fileInventory.getName());
             	//load inventory products to add to inputInventory.txt
@@ -191,8 +195,10 @@ public class Shop {
         }
 		
 	}
+	
 	// Write new products to file inventory.txt
-	private void writeNewInventory() {
+	public void writeNewInventory() {
+		boolean isWrited = false;
 		try {
 			File fileInventory = new File("inputInventory.txt");
 			FileWriter myWriter = new FileWriter("inputInventory.txt"); 
@@ -205,6 +211,7 @@ public class Shop {
 				}        			        		
     System.out.println("File inventory finished");
     myWriter.close();
+    isWrited = true;
 			}
 		} catch (IOException e) {
             System.out.println("Error: Archivo no encontrado");
@@ -554,7 +561,7 @@ public class Shop {
 		System.out.println("Name User: ");
 		String user = sc.next();
 		do {
-			
+			String name = "";
 			System.out.println("ID User: ");
 			int iduser = sc.nextInt();
 			System.out.println("Password: ");

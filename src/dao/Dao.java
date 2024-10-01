@@ -1,8 +1,10 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.Employee;
+import model.Product;
 
 public interface Dao {
 
@@ -11,5 +13,9 @@ public interface Dao {
 	Employee getEmployee(int employeeId, String password);
 	
 	void disconnect() throws SQLException;
+	
+	ArrayList<Product> getInventory();
+	
+	boolean writeInventory(ArrayList<Product> inventory);
 	
 }
