@@ -198,6 +198,7 @@ public class Shop {
 	
 	// Write new products to file inventory.txt
 	public void writeNewInventory() {
+		dao.writeInventory(inventory);
 		/*
 		 * boolean isWrited = false; try { File fileInventory = new
 		 * File("inputInventory.txt"); FileWriter myWriter = new
