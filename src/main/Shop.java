@@ -49,7 +49,7 @@ public class Shop {
 		Shop shop = new Shop();
 
 			//shop.loadInventory();
-			shop.readFileInventory();
+			shop.readInventory();
 		
 		Scanner scanner = new Scanner(System.in);
 		int opcion = 0;
@@ -134,8 +134,9 @@ public class Shop {
 		addProduct(new Product("Fresa", 5.00, true, 20));
 		
 	}
+	
 	// Read inventory file or create a new one if not exist
-	public void readFileInventory() {
+	public void readInventory() {
 		int count = 0;
 		boolean exit = false;
 		String x = null; String y = null; String z = null;
@@ -185,7 +186,7 @@ public class Shop {
         					}        			        		
                 System.out.println("File inventory finished");
                 myWriter.close();
-                readFileInventory();
+                readInventory();
             }
  
             
@@ -197,7 +198,7 @@ public class Shop {
 	}
 	
 	// Write new products to file inventory.txt
-	public void writeNewInventory() {
+	public void writeInventory() {
 		dao.writeInventory(inventory);
 		/*
 		 * boolean isWrited = false; try { File fileInventory = new
@@ -211,6 +212,7 @@ public class Shop {
 		 * System.out.println("Error: Archivo no encontrado"); e.printStackTrace(); }
 		 */
 	}
+	
 	// write the new sales in the fileSales
 	private void updateFileSales() {
 		int numberSale = 1;
@@ -283,7 +285,7 @@ public class Shop {
 				errorMethot = true;
 				addProduct(new Product(name, price, true, stock));
 				
-				writeNewInventory();
+				writeInventory();
 			}
 		/*
 		*	System.out.print("Precio mayorista: ");
@@ -321,7 +323,7 @@ public class Shop {
 		//plus the stock that you write [CORRECTION]
 			product.setStock(product.getStock() + stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
-			writeNewInventory();
+			writeInventory();
 			errorMethot = true;
 			//System.out.println(product.getStock()); Stock before change
 		} else {
@@ -345,7 +347,7 @@ public class Shop {
 			//use methot expire() [CORRECTION]
 			product.expire();
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getPublicPrice());
-			writeNewInventory();
+			writeInventory();
 		}
 	}
 
@@ -433,7 +435,7 @@ public class Shop {
 		Sale sale = new Sale(client, products, totalAmount, date);
 		sales.add(sale);
 		
-		writeNewInventory();
+		writeInventory();
 	}
 	
 	/**
@@ -496,7 +498,7 @@ public class Shop {
 					inventory.remove(product);
 					System.out.println(product.getName()+" was deleted");
 					//Rewrite the inventory without the product
-					writeNewInventory();
+					writeInventory();
 					errorMethot = true;
 				}
 			}

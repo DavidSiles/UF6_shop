@@ -28,14 +28,16 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	private JButton addNewProductButton;
 	private JButton addStockButton;
 	private JButton deleteProductButton;
+	private JButton inventoryButon;
 	private Shop shop = new Shop();
 	private int option;
+	
 	
 	/**
 	 * Create the frame.
 	 */
 	public ShopView() {
-		shop.readFileInventory();
+		shop.readInventory();
 		setTitle("Shop view");
 		addKeyListener(this);
 		
@@ -73,19 +75,18 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		addStockButton.setFocusable(false);
 		
 		deleteProductButton = new JButton("9.Delete product");
-		deleteProductButton.setBounds(30, 202, 250, 50);
+		deleteProductButton.setBounds(251, 200, 150, 50);
 		contentPane.add(deleteProductButton);
 		deleteProductButton.addActionListener(this);
 		deleteProductButton.addKeyListener(this);
 		deleteProductButton.setFocusable(false);
 		
-		JButton btnNewButton = new JButton("0.Print Inventory");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(30, 51, 150, 50);
-		contentPane.add(btnNewButton);
+		inventoryButon = new JButton("0.Print Inventory");
+		inventoryButon.setBounds(30, 51, 150, 50);
+		contentPane.add(inventoryButon);
+		inventoryButon.addActionListener(this);
+		inventoryButon.addKeyListener(this);
+		inventoryButon.setFocusable(false);
 		
 	}
 	
@@ -176,6 +177,21 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		}else if(deleteProductButton == e.getSource()) {
 			option = 9;
 			addproductView.openProductView(option, shop);
+		}else if(inventoryButon == e.getSource()) {
+			option = 0;
+			shop.writeInventory();
+			if (/* condición para activar la exportación */) {
+			    try {
+			      const exportResult = shop.writeInventory();
+			      console.log('Exportación:', exportResult);
+
+			      mostrarPanelConfirmacion();
+			    } catch (error) {
+			      // Manejar errores
+			      console.error('Error al exportar:', error);
+			      mostrarPanelError(error);
+			    }
+			  }
 		}
 		//blockButtons();
 	}

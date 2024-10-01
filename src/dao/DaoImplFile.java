@@ -66,22 +66,6 @@ public class DaoImplFile implements Dao{
 				}
 	            	fr.close();
 	        		br.close();
-			
-			 /*}else if(fileInventory.createNewFile()) {
-            	System.out.println("File created: " + fileInventory.getName());
-            	//load inventory products to add to inputInventory.txt
-            	loadInventory();
-            	FileWriter myWriter = new FileWriter("inputInventory.txt"); 
-        					for (Product product : inventory) {
-        		    			if (product != null) {
-        		    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
-        		    			+product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n");  
-        		    			}
-        					}        			        		
-                System.out.println("File inventory finished");
-                myWriter.close();
-                getInventory();
-            }*/
             
         } catch (IOException e) {
             System.out.println("Error: Archivo no encontrado");
