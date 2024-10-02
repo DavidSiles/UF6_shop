@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.Shop;
+import model.Amount;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -112,7 +113,8 @@ public class ProductView extends JDialog implements ActionListener {
 		if(okButton == e.getSource()) {
 			String name = nameProduct.getText();
 			int stock = Integer.parseInt(stockProduct.getText());
-			double price = Double.parseDouble(priceProduct.getText());
+			double amountProduct = Double.parseDouble(priceProduct.getText());
+			Amount price = new Amount(amountProduct);
 			if(option == 2) {
 				if(shop.addNewProduct(name, stock, price) == false) {
 					JOptionPane.showMessageDialog(this,

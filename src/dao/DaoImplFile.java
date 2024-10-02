@@ -2,6 +2,7 @@ package dao;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import main.Shop;
+import model.Amount;
 import model.Employee;
 import model.Product;
 
@@ -29,48 +31,54 @@ public class DaoImplFile implements Dao{
 	public ArrayList<Product> getInventory() {
 		
 		ArrayList<Product> inventoryLoader = new ArrayList<Product>();
-		int count = 0;
-		boolean exit = false;
-		String x = null; String y = null; String z = null;
-        
+		
+		
 		try {
-        	//create file
-			/*
-			File fileInventory = new File("inputInventory.txt");
-			if(fileInventory.exists()) {
-			*/
-				FileReader fr = new FileReader("inputInventory.txt");
-				BufferedReader br = new BufferedReader(fr);
-				while(exit == false) {
-            		String myLine = br.readLine();
-            		if(myLine != null) {
-		            	String[] result1 = myLine.split(";");
-		            	while(count<3) {
-			            	String[] result2 = result1[count].split(":");
-			            	if(count == 0) {
-			            		 x = result2[1];
-			            	}else if(count == 1) {
-			            		 y = result2[1];
-			            	}else if(count == 2) {
-			            		 z = result2[1];
-			            	}
-			            	count++;
-		            	}
-		            	double price = Double.parseDouble(y);
-		            	int stock = Integer.parseInt(z);
-		            	inventoryLoader.add(new Product(x, price, true, stock));
-		            	count = 0;
-            		}else {
-            			exit = true;
-            		}
+			File f = new File(System.getProperty("user.dir") + File.separator + "files/inputInventory.txt");
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String line = br.readLine();
+
+			while (line != null) {
+				String[] sections = line.split(";");
+				
+				String name = "";
+				double wholesalerPrice=0.0;
+				int stock = 0;
+				
+				for (int i = 0; i < sections.length; i++) {
+					String[] data = sections[i].split(":");
+					
+					switch (i) {
+					case 0:
+						name = data[1];
+						break;
+						
+					case 1:
+						wholesalerPrice = Double.parseDouble(data[1]);
+						break;
+						
+					case 2:
+						stock = Integer.parseInt(data[1]);
+						break;
+						
+					default:
+						break;
+					}
 				}
-	            	fr.close();
-	        		br.close();
-            
-        } catch (IOException e) {
-            System.out.println("Error: Archivo no encontrado");
-            e.printStackTrace();
-        }
+				inventoryLoader.add(new Product(name, new Amount(wholesalerPrice), true, stock));
+				line = br.readLine();
+			}
+			br.close();
+			br.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return inventoryLoader;
 

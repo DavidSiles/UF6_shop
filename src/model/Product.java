@@ -11,13 +11,13 @@ public class Product {
     // add final [CORRECTION]
     final static double EXPIRATION_RATE=0.60;
     
-	public Product(String name, double wholesalerPrice, boolean available, int stock) {
+	public Product(String name, Amount amount, boolean available, int stock) {
 		super();
 		this.id = totalProducts+1;
 		this.name = name;
 		//add the publicPrice [CORRECTION]
-		this.publicPrice = wholesalerPrice * 2;
-		this.wholesalerPrice = wholesalerPrice;
+		this.publicPrice = amount.getValue() * 2;
+		this.wholesalerPrice = amount.getValue();
 		this.available = available;
 		this.stock = stock;
 		totalProducts++;

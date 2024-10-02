@@ -43,7 +43,12 @@ public class Shop {
 		//create a new sales array to inset the sales [CORRECTION]
 		sales = new ArrayList<Sale>();
 		countSales = 0;
-		readInventory();
+		try {
+			loadInventoryFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -83,11 +88,11 @@ public class Shop {
 				break;
 
 			case 2:
-				shop.addNewProduct(null, opcion, opcion);
+				shop.addNewProduct(null, 0, new Amount(0));
 				break;
 
 			case 3:
-				shop.addStock(null, opcion);
+				shop.addStock(null, 0);
 				break;
 
 			case 4:
@@ -129,77 +134,52 @@ public class Shop {
 	 */
 	public void loadInventory() {
 		
-		addProduct(new Product("Manzana", 10.00, true, 10));
-		addProduct(new Product("Pera", 20.00, true, 20));
-		addProduct(new Product("Hamburguesa", 30.00, true, 30));
-		addProduct(new Product("Fresa", 5.00, true, 20));
+		addProduct(new Product("Manzana", new Amount(10.00), true, 10));
+		addProduct(new Product("Pera", new Amount(20.00), true, 20));
+		addProduct(new Product("Hamburguesa", new Amount(30.00), true, 30));
+		addProduct(new Product("Fresa", new Amount(5.00), true, 20));
 		
+	}
+	
+	public void loadInventoryFile() throws IOException {
+		try {
+			
+			String dirPath = System.getProperty("user.dir") + File.separator + "files";
+	        File dir = new File(dirPath);
+
+	        if (!dir.exists()) {
+	            dir.mkdir();
+	        }
+	        
+	        File f = new File(dirPath + File.separator + "inputInventory.txt");
+	        if(f.exists()) {
+	        	readInventory();
+	        }else {
+	        	System.out.println("File created: " + f.getName());
+	        	//load inventory products to add to inputInventory.txt
+	        	loadInventory();
+	        	FileWriter myWriter = new FileWriter("inputInventory.txt"); 
+	    					for (Product product : inventory) {
+	    		    			if (product != null) {
+	    		    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
+	    		    			+product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n");  
+	    		    			}
+	    					}        			        		
+	            System.out.println("File inventory finished");
+	            myWriter.close();
+	        }
+        	
+		}catch (Exception e) {
+			System.out.println("Error: Archivo no encontrado");
+            e.printStackTrace();
+		}
+        
 	}
 	
 	// Read inventory file or create a new one if not exist
 	public void readInventory() {
-		int count = 0;
-		boolean exit = false;
-		String x = null; String y = null; String z = null;
-		
-		try {
-			
-			File directory = new File("files");
-	        if (!directory.exists()) {
-	            directory.mkdir();
-	        }
-        	//create file
-			File fileInventory = new File("inputInventory.txt");
-			if(fileInventory.exists()) {
-				dao.getInventory();
-				/* FileReader fr = new FileReader("inputInventory.txt");
-				BufferedReader br = new BufferedReader(fr);
-				while(exit == false) {
-            		String myLine = br.readLine();
-            		if(myLine != null) {
-		            	String[] result1 = myLine.split(";");
-		            	while(count<3) {
-			            	String[] result2 = result1[count].split(":");
-			            	if(count == 0) {
-			            		 x = result2[1];
-			            	}else if(count == 1) {
-			            		 y = result2[1];
-			            	}else if(count == 2) {
-			            		 z = result2[1];
-			            	}
-			            	count++;
-		            	}
-		            	double price = Double.parseDouble(y);
-		            	int stock = Integer.parseInt(z);
-		            	addProduct(new Product(x, price, true, stock));
-		            	count = 0;
-            		}else {
-            			exit = true;
-            		}
-				}
-	            	fr.close();
-	        		br.close(); */
-			}else if(fileInventory.createNewFile()) {
-            	System.out.println("File created: " + fileInventory.getName());
-            	//load inventory products to add to inputInventory.txt
-            	loadInventory();
-            	FileWriter myWriter = new FileWriter("inputInventory.txt"); 
-        					for (Product product : inventory) {
-        		    			if (product != null) {
-        		    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
-        		    			+product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n");  
-        		    			}
-        					}        			        		
-                System.out.println("File inventory finished");
-                myWriter.close();
-                readInventory();
-            }
- 
-            
-        } catch (IOException e) {
-            System.out.println("Error: Archivo no encontrado");
-            e.printStackTrace();
-        }
+
+		dao.getInventory();
 		
 	}
 	
@@ -276,7 +256,7 @@ public class Shop {
 	 */
 	
 	// changed the name of methot [CORRECTION]
-	public boolean addNewProduct(String name, int stock, double price) {
+	public boolean addNewProduct(String name, int stock, Amount price) {
 		/*
 		* Scanner scanner = new Scanner(System.in);
 		* System.out.print("Nombre: ");
