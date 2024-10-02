@@ -43,6 +43,7 @@ public class Shop {
 		//create a new sales array to inset the sales [CORRECTION]
 		sales = new ArrayList<Sale>();
 		countSales = 0;
+		readInventory();
 	}
 
 	public static void main(String[] args) {
@@ -142,6 +143,11 @@ public class Shop {
 		String x = null; String y = null; String z = null;
 		
 		try {
+			
+			File directory = new File("files");
+	        if (!directory.exists()) {
+	            directory.mkdir();
+	        }
         	//create file
 			File fileInventory = new File("inputInventory.txt");
 			if(fileInventory.exists()) {
@@ -198,8 +204,8 @@ public class Shop {
 	}
 	
 	// Write new products to file inventory.txt
-	public void writeInventory() {
-		dao.writeInventory(inventory);
+	public boolean writeInventory() {
+		return dao.writeInventory(inventory);
 		/*
 		 * boolean isWrited = false; try { File fileInventory = new
 		 * File("inputInventory.txt"); FileWriter myWriter = new

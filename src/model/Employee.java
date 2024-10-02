@@ -34,6 +34,7 @@ public class Employee extends Person {
 	public boolean login(int user, String password) {
     	
 	// Connect to database data.	
+/*
 		  DaoImplJDBC dao = new DaoImplJDBC();
 		  
 		  dao.connect(); System.out.println("Conectado"); Employee employee =
@@ -41,17 +42,17 @@ public class Employee extends Person {
 		  (SQLException e) { e.printStackTrace(); }
 		  
 		  if(employee == null) { return false; }else{ return true; }
-		 
+*/		 
 		
 		
 	// Simple form of Login.
 		  
-/*		if((user == USER) && (password == this.password)){
+		if((user == USER) && (password == this.password)){
 			return true;
 		}else {
 			return false;
 		}
-		*/
+
     }
     
 }

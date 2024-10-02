@@ -178,23 +178,26 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 			option = 9;
 			addproductView.openProductView(option, shop);
 		}else if(inventoryButon == e.getSource()) {
-			option = 0;
-			shop.writeInventory();
-			if (/* condición para activar la exportación */) {
-			    try {
-			      const exportResult = shop.writeInventory();
-			      console.log('Exportación:', exportResult);
-
-			      mostrarPanelConfirmacion();
-			    } catch (error) {
-			      // Manejar errores
-			      console.error('Error al exportar:', error);
-			      mostrarPanelError(error);
-			    }
-			  }
+	        option = 0;
+	        try {
+	            boolean exportResult = shop.writeInventory();
+	            if (exportResult = true) {
+	            	shop.readInventory();
+	            	System.out.println("Export: " + exportResult);
+		            JOptionPane.showMessageDialog(this,
+	                        "Inventory writed successfully!",
+	                        "Success", JOptionPane.INFORMATION_MESSAGE);
+	            }
+	        } catch (Exception error) {
+	            System.err.println("Error to export: " + error.getMessage());
+	            JOptionPane.showMessageDialog(this,
+						"ERROR: product not exist",
+						"Error to delete", JOptionPane.ERROR_MESSAGE);
+	        }
 		}
-		//blockButtons();
 	}
+		//blockButtons();
+
 	
 	public void openCashView(int option, Shop shop) {
 		if(option == 1) {

@@ -32,7 +32,7 @@ public class DaoImplFile implements Dao{
 		int count = 0;
 		boolean exit = false;
 		String x = null; String y = null; String z = null;
-		
+        
 		try {
         	//create file
 			/*
@@ -79,10 +79,8 @@ public class DaoImplFile implements Dao{
 	
 	public boolean writeInventory(ArrayList<Product> inventory) {
 		boolean isWrited = false;
-		try {
-			File fileInventory = new File("inputInventory.txt");
-			FileWriter myWriter = new FileWriter("inputInventory.txt"); 
-			if(fileInventory.exists()) {		
+		try {	
+				FileWriter myWriter = new FileWriter("inputInventory.txt"); 
 				for (Product product : inventory) {
 	    			if (product != null) {
 	    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
@@ -92,7 +90,7 @@ public class DaoImplFile implements Dao{
     System.out.println("File inventory finished");
     myWriter.close();
     isWrited = true;
-			}
+
 		} catch (IOException e) {
             System.out.println("Error: Archivo no encontrado");
             e.printStackTrace();
