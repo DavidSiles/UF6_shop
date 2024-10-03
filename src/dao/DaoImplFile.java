@@ -80,15 +80,11 @@ public class DaoImplFile implements Dao{
 	        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	        
 	        String dirPath = System.getProperty("user.dir") + File.separator + "files";
-	        File dir = new File(dirPath);
-
-	        if (!dir.exists()) {
-	            dir.mkdir();
-	        }
 	        
 	        File file = new File(dirPath + File.separator + "inventory_" + date + ".txt");
 
 	        try (FileWriter myWriter = new FileWriter(file)) {
+	        	
 	            for (Product product : inventory) {
 	                if (product != null) {
 	                    myWriter.write("Product:" + product.getName() + ";Wholesaler Price:"
@@ -100,8 +96,10 @@ public class DaoImplFile implements Dao{
 	        }
 
 	    } catch (IOException e) {
+	    	isWrited = false;
 	        System.out.println("Error al escribir el archivo de inventario.");
 	        e.printStackTrace();
+	        return isWrited;
 	    }
 	    return isWrited;
 	}
