@@ -43,12 +43,7 @@ public class Shop {
 		//create a new sales array to inset the sales [CORRECTION]
 		sales = new ArrayList<Sale>();
 		countSales = 0;
-		try {
-			loadInventoryFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadInventoryFile();
 	}
 
 	public static void main(String[] args) {
@@ -141,50 +136,49 @@ public class Shop {
 		
 	}
 	
-	public void loadInventoryFile() throws IOException {
-		try {
-			
-			String dirPath = System.getProperty("user.dir") + File.separator + "files";
-	        File dir = new File(dirPath);
+	public void loadInventoryFile() {
+        try {
+            String dirPath = System.getProperty("user.dir") + File.separator + "files";
+            File dir = new File(dirPath);
 
-	        if (!dir.exists()) {
-	            dir.mkdir();
-	        }
-	        
-	        File f = new File(dirPath + File.separator + "inputInventory.txt");
-	        if(f.exists()) {
-	        	readInventory();
-	        }else {
-	        	System.out.println("File created: " + f.getName());
-	        	//load inventory products to add to inputInventory.txt
-	        	loadInventory();
-	        	FileWriter myWriter = new FileWriter("inputInventory.txt"); 
-	    					for (Product product : inventory) {
-	    		    			if (product != null) {
-	    		    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
-	    		    			+product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n");  
-	    		    			}
-	    					}        			        		
-	            System.out.println("File inventory finished");
-	            myWriter.close();
-	        }
-        	
-		}catch (Exception e) {
-			System.out.println("Error: Archivo no encontrado");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
+            File f = new File(dirPath + File.separator + "inputInventory.txt");
+
+            if (f.exists()) {
+                readInventory();
+            } else {
+                System.out.println("File created: " + f.getName());
+                loadInventory();
+
+                try (FileWriter myWriter = new FileWriter(f)) {
+                    for (Product product : inventory) {
+                        if (product != null) {
+                            myWriter.write("Product:" + product.getName() + ";Wholesaler Price:"
+                                    + product.getWholesalerPrice() + ";Stock:" + product.getStock() + ";\n");
+                        }
+                    }
+                    System.out.println("File inventory finished");
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al cargar el archivo de inventario.");
             e.printStackTrace();
-		}
-        
-	}
+        }
+    }
 	
 	// Read inventory file or create a new one if not exist
 	public void readInventory() {
-
-		dao.getInventory();
 		
+		inventory = dao.getInventory();
 	}
 	
 	// Write new products to file inventory.txt
 	public boolean writeInventory() {
+		
 		return dao.writeInventory(inventory);
 		/*
 		 * boolean isWrited = false; try { File fileInventory = new
@@ -270,8 +264,6 @@ public class Shop {
 			}else {
 				errorMethot = true;
 				addProduct(new Product(name, price, true, stock));
-				
-				writeInventory();
 			}
 		/*
 		*	System.out.print("Precio mayorista: ");
@@ -309,7 +301,6 @@ public class Shop {
 		//plus the stock that you write [CORRECTION]
 			product.setStock(product.getStock() + stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
-			writeInventory();
 			errorMethot = true;
 			//System.out.println(product.getStock()); Stock before change
 		} else {
@@ -333,7 +324,7 @@ public class Shop {
 			//use methot expire() [CORRECTION]
 			product.expire();
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getPublicPrice());
-			writeInventory();
+
 		}
 	}
 
@@ -421,7 +412,6 @@ public class Shop {
 		Sale sale = new Sale(client, products, totalAmount, date);
 		sales.add(sale);
 		
-		writeInventory();
 	}
 	
 	/**
@@ -484,7 +474,6 @@ public class Shop {
 					inventory.remove(product);
 					System.out.println(product.getName()+" was deleted");
 					//Rewrite the inventory without the product
-					writeInventory();
 					errorMethot = true;
 				}
 			}

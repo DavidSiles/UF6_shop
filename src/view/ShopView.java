@@ -37,7 +37,6 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	 * Create the frame.
 	 */
 	public ShopView() {
-		shop.readInventory();
 		setTitle("Shop view");
 		addKeyListener(this);
 		
@@ -182,7 +181,6 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	        try {
 	            boolean exportResult = shop.writeInventory();
 	            if (exportResult = true) {
-	            	shop.readInventory();
 	            	System.out.println("Export: " + exportResult);
 		            JOptionPane.showMessageDialog(this,
 	                        "Inventory writed successfully!",

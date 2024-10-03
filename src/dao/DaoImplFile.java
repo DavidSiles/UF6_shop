@@ -7,7 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import main.Shop;
 import model.Amount;
@@ -29,81 +31,79 @@ public class DaoImplFile implements Dao{
 
 	
 	public ArrayList<Product> getInventory() {
-		
-		ArrayList<Product> inventoryLoader = new ArrayList<Product>();
-		
-		
-		try {
-			File f = new File(System.getProperty("user.dir") + File.separator + "files/inputInventory.txt");
-			BufferedReader br = new BufferedReader(new FileReader(f));
-			String line = br.readLine();
+        ArrayList<Product> inventoryLoader = new ArrayList<>();
 
-			while (line != null) {
-				String[] sections = line.split(";");
-				
-				String name = "";
-				double wholesalerPrice=0.0;
-				int stock = 0;
-				
-				for (int i = 0; i < sections.length; i++) {
-					String[] data = sections[i].split(":");
-					
-					switch (i) {
-					case 0:
-						name = data[1];
-						break;
-						
-					case 1:
-						wholesalerPrice = Double.parseDouble(data[1]);
-						break;
-						
-					case 2:
-						stock = Integer.parseInt(data[1]);
-						break;
-						
-					default:
-						break;
-					}
-				}
-				inventoryLoader.add(new Product(name, new Amount(wholesalerPrice), true, stock));
-				line = br.readLine();
-			}
-			br.close();
-			br.close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return inventoryLoader;
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + File.separator + "files" + File.separator + "inputInventory.txt"))) {
+            String line;
 
-	}
+            while ((line = br.readLine()) != null) {
+                String[] sections = line.split(";");
+                String name = "";
+                double wholesalerPrice = 0.0;
+                int stock = 0;
+
+                for (int i = 0; i < sections.length; i++) {
+                    String[] data = sections[i].split(":");
+
+                    switch (i) {
+                        case 0:
+                            name = data[1];
+                            break;
+                        case 1:
+                            wholesalerPrice = Double.parseDouble(data[1]);
+                            break;
+                        case 2:
+                            stock = Integer.parseInt(data[1]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                inventoryLoader.add(new Product(name, new Amount(wholesalerPrice), true, stock));
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo de inventario no encontrado.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de inventario.");
+            e.printStackTrace();
+        }
+
+        return inventoryLoader;
+    }
 
 	
 	public boolean writeInventory(ArrayList<Product> inventory) {
-		boolean isWrited = false;
-		try {	
-				FileWriter myWriter = new FileWriter("inputInventory.txt"); 
-				for (Product product : inventory) {
-	    			if (product != null) {
-	    				myWriter.write("Product:"+product.getName()+";Wholesaler Price:"
-	    			+product.getWholesalerPrice()+";Stock:"+product.getStock()+";\n");  
-	    			}
-				}        			        		
-    System.out.println("File inventory finished");
-    myWriter.close();
-    isWrited = true;
+	    boolean isWrited = false;
+	    try {
+	        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	        
+	        String dirPath = System.getProperty("user.dir") + File.separator + "files";
+	        File dir = new File(dirPath);
 
-		} catch (IOException e) {
-            System.out.println("Error: Archivo no encontrado");
-            e.printStackTrace();
-        }
-		return isWrited;
+	        if (!dir.exists()) {
+	            dir.mkdir();
+	        }
+	        
+	        File file = new File(dirPath + File.separator + "inventory_" + date + ".txt");
+
+	        try (FileWriter myWriter = new FileWriter(file)) {
+	            for (Product product : inventory) {
+	                if (product != null) {
+	                    myWriter.write("Product:" + product.getName() + ";Wholesaler Price:"
+	                            + product.getWholesalerPrice() + ";Stock:" + product.getStock() + ";\n");
+	                }
+	            }
+	            System.out.println("File inventory finished: " + file.getName());
+	            isWrited = true;
+	        }
+
+	    } catch (IOException e) {
+	        System.out.println("Error al escribir el archivo de inventario.");
+	        e.printStackTrace();
+	    }
+	    return isWrited;
 	}
 
 	public Employee getEmployee(int employeeId, String password) {
