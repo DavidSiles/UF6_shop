@@ -76,7 +76,7 @@ public class DaoImplFile implements Dao{
 	
 	public boolean writeInventory(ArrayList<Product> inventory) {
 	    boolean isWrited = false;
-	    int numberProducts = 1;
+	    int numberProducts = 0;
 	    try {
 	        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	        
@@ -88,8 +88,8 @@ public class DaoImplFile implements Dao{
 	        	
 	            for (Product product : inventory) {
 	                if (product != null) {
+	                	numberProducts++;
 	                    myWriter.write(numberProducts+"Product:" + product.getName()+ ";Stock:" + product.getStock() + ";\n");
-	                    numberProducts++;
 	                }
 	            }
 	            myWriter.write("Numero total de productos: " + numberProducts);
