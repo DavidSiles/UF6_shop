@@ -32,8 +32,7 @@ public class DaoImplFile implements Dao{
 	}
 
 	
-	public void disconnect() throws SQLException {
-		// TODO Auto-generated method stub
+	public void disconnect() {
 		
 	}
 
@@ -58,7 +57,7 @@ public class DaoImplFile implements Dao{
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	
 		return products;
 		
@@ -91,7 +90,7 @@ public class DaoImplFile implements Dao{
 
 	
 	public boolean writeInventory(ArrayList<Product> inventory) {
-	    boolean isWrited = false;
+	    boolean Written = false;
 	    int numberProducts = 0;
 	    try {
 	        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -110,16 +109,16 @@ public class DaoImplFile implements Dao{
 	            }
 	            myWriter.write("Numero total de productos: " + numberProducts);
 	            System.out.println("File inventory finished: " + file.getName());
-	            isWrited = true;
+	            Written = true;
 	        }
 
 	    } catch (IOException e) {
-	    	isWrited = false;
+	    	Written = false;
 	        System.out.println("Error al escribir el archivo de inventario.");
 	        e.printStackTrace();
-	        return isWrited;
+	        return Written;
 	    }
-	    return isWrited;
+	    return Written;
 	}
 
 	public Employee getEmployee(int employeeId, String password) {
