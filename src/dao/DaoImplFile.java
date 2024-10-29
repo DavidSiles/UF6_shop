@@ -27,8 +27,7 @@ import model.Product;
 public class DaoImplFile implements Dao{
 
 	public void connect() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	
@@ -107,7 +106,7 @@ public class DaoImplFile implements Dao{
 	                    myWriter.write(numberProducts+"Product:" + product.getName()+ ";Stock:" + product.getStock() + ";\n");
 	                }
 	            }
-	            myWriter.write("Numero total de productos: " + numberProducts);
+	            myWriter.write("Numero total de productos: " + numberProducts + ";\n");
 	            System.out.println("File inventory finished: " + file.getName());
 	            Written = true;
 	        }
@@ -122,7 +121,6 @@ public class DaoImplFile implements Dao{
 	}
 
 	public Employee getEmployee(int employeeId, String password) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
