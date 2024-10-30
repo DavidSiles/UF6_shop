@@ -43,7 +43,7 @@ private ArrayList<Product> copyInventory;
 		}
 	}	
 
-	public void generateDocument() {
+	public boolean generateDocument() {
 	    // PARENT NODE
 	    Element products = document.createElement("products");
 	    products.setAttribute("total", String.valueOf(copyInventory.size()));
@@ -71,7 +71,11 @@ private ArrayList<Product> copyInventory;
 	        
 	    }
 	    
-	    generateXml();
+	    if(generateXml()) {
+	    	return true;
+	    }else {
+	    	return false;
+	    }
 	}
 
 	

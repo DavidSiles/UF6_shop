@@ -43,7 +43,7 @@ public class DaoImplXml implements Dao{
 			
 			SAXParserFactory saxParseFactory = SAXParserFactory.newInstance();
 			SAXParser saxParse = saxParseFactory.newSAXParser();
-			File file = new File("/Users/tarde/git/UF6_shop/files/inputInventory.xml");
+			File file = new File("files/inputInventory.xml");
 			SaxReader handler = new SaxReader();
 			saxParse.parse(file, handler);
 			
@@ -63,11 +63,9 @@ public class DaoImplXml implements Dao{
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
 		
-				DomWriter domWriter = new DomWriter(inventory);
-				domWriter.generateDocument();
-				
-				
-		return false;
+		DomWriter domWriter = new DomWriter(inventory);
+
+		return domWriter.generateDocument();
 	}
 
 }
