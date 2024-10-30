@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplXml;
+import dao.xml.SaxReader;
 
 public class Shop {
 	private Amount cash = new Amount(100.00);
@@ -34,7 +36,11 @@ public class Shop {
 	final static double TAX_RATE = 1.04;
 	//create a new variable to count the sales of the shop.
 	private int countSales;
-	private DaoImplFile dao = new DaoImplFile();
+	
+	// Commented daoImpl File line to avoid conflict with other dao.
+	//private DaoImplFile dao = new DaoImplFile();
+	private DaoImplXml dao = new DaoImplXml();
+	
 	
 	public Shop() {
 		// cash = 0.0; initial cash = 100.00 [CORRECTION]
