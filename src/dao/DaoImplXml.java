@@ -39,8 +39,6 @@ public class DaoImplXml implements Dao{
 	public ArrayList<Product> getInventory() {
 		ArrayList<Product> products = null;	
 		try {
-			
-			
 			SAXParserFactory saxParseFactory = SAXParserFactory.newInstance();
 			SAXParser saxParse = saxParseFactory.newSAXParser();
 			File file = new File("files/inputInventory.xml");
@@ -49,6 +47,11 @@ public class DaoImplXml implements Dao{
 			
 			products = handler.getProducts();
 			
+		// Print all the information in products
+			System.out.println("Inventory loaded");
+			for(Product product : products) {
+				System.out.println(product);
+			}
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +67,6 @@ public class DaoImplXml implements Dao{
 	public boolean writeInventory(ArrayList<Product> inventory) {
 		
 		DomWriter domWriter = new DomWriter(inventory);
-
 		return domWriter.generateDocument();
 	}
 
