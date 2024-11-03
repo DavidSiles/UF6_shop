@@ -28,7 +28,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import model.Amount;
 import model.Product;
 
-public class DomWriter extends DefaultHandler{
+public class DomWriter{
 	
 private Document document;
 private ArrayList<Product> copyInventory;	
