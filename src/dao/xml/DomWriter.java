@@ -45,9 +45,10 @@ private ArrayList<Product> copyInventory;
 	}	
 
 	public boolean generateDocument() {
-	    // PARENT NODE
+		if (this.copyInventory != null) {
 	    Element products = document.createElement("products");
-	    products.setAttribute("total", String.valueOf(copyInventory.size()));
+	    
+	    	products.setAttribute("total", String.valueOf(copyInventory.size()));
 	    document.appendChild(products);
 	    
 	    // Loop through inventory array
@@ -68,15 +69,17 @@ private ArrayList<Product> copyInventory;
 	        
 	        Element stock = document.createElement("stock");
 	        stock.setTextContent(String.valueOf(productItem.getStock()));
-	        product.appendChild(stock);
-	        
+	        product.appendChild(stock);	        
 	    }
-	    
 	    if(generateXml()) {
 	    	return true;
 	    }else {
 	    	return false;
 	    }
+		}else {
+	    	return false;
+	    }
+	    
 	}
 
 	
