@@ -1,5 +1,9 @@
 package model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
+
+@XmlRootElement(name="price")
 public class Amount {
 	
 	private double value;
@@ -9,7 +13,7 @@ public class Amount {
 		super();
 		this.value = value;
 	}
-	
+	@XmlValue
 	public double getValue() {
 		return value;
 	}

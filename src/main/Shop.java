@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplJaxb;
 import dao.DaoImplXml;
 import dao.xml.SaxReader;
 
@@ -39,7 +40,8 @@ public class Shop {
 	
 	// Commented daoImpl File line to avoid conflict with other dao.
 	//private DaoImplFile dao = new DaoImplFile();
-	private DaoImplXml dao = new DaoImplXml();
+	//private DaoImplXml dao = new DaoImplXml();
+	private DaoImplJaxb dao = new DaoImplJaxb();
 	
 	
 	public Shop() {
