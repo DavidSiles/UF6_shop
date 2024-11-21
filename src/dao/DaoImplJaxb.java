@@ -1,11 +1,14 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
+import dao.jaxb.JaxbMarshaller;
 import dao.jaxb.JaxbUnMarshaller;
+import dao.xml.DomWriter;
 import model.Employee;
 import model.Product;
+import model.ProductList;
 
 public class DaoImplJaxb implements Dao{
 
@@ -29,18 +32,27 @@ public class DaoImplJaxb implements Dao{
 
 	@Override
 	public ArrayList<Product> getInventory() {
-		ArrayList<Product> products = null;	
-		JaxbUnMarshaller unMarshaller = new JaxbUnMarshaller();
-		products = unMarshaller.init();
-		
-		
-		return products;
+	    ArrayList<Product> products = null;    
+	    JaxbUnMarshaller unMarshaller = new JaxbUnMarshaller();
+	    products = unMarshaller.init();
+	    return products;
 	}
+
 
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		try {
+			ProductList products = new ProductList(inventory);
+			JaxbMarshaller marshaller = new JaxbMarshaller();
+			marshaller.init(products);
+			
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 }

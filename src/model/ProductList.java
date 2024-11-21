@@ -1,31 +1,46 @@
 package model;
 
-import java.util.ArrayList;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
-@XmlRootElement(name="products")
+@XmlRootElement(name = "Products")
 public class ProductList {
-	private int total;
-	
-	private ArrayList<Product> products = new ArrayList<>();  // Initialize products	
-	  
-	
-	public void setProducts(ArrayList<Product> products) {
+    private List<Product> products;
+    
+    
+    private int total;
+    
+    public ProductList() {
+        this.products = new ArrayList<>();
+    }
+
+    public ProductList(ArrayList<Product> products) {
 		this.products = products;
 	}
+    
+    @XmlElement(name = "product")
+    public List<Product> getProducts() {
+        return products;
+    }
 
-	public ProductList() {};	
-	
-	public ProductList(ArrayList<Product> products) {
-		this.products = products;
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+    
+    @Override
+    public String toString() {
+        return "Products [products=" + products + "]";
+    }
+    
+    @XmlAttribute(name = "total")
+	public int getTotal() {
+    	return products.size();
 	}
 
-	@XmlElement(name="product")
-	public ArrayList<Product> getProducts() {
-		return products;
+	public void setTotal(int total) {
+		this.total = total;
 	}
-	
 }

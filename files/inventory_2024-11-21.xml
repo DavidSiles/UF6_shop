@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Products total="4">
+    <product id="1" name="Manzana">
+        <available>false</available>
+        <Stock>10</Stock>
+    </product>
+    <product id="2" name="Pera">
+        <available>false</available>
+        <Stock>20</Stock>
+    </product>
+    <product id="3" name="Hamburguesa">
+        <available>false</available>
+        <Stock>30</Stock>
+    </product>
+    <product id="4" name="Fresa">
+        <available>false</available>
+        <Stock>20</Stock>
+    </product>
+</Products>

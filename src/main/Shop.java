@@ -388,7 +388,7 @@ public class Shop {
 
 			if (product != null && product.isAvailable()) {
 				productAvailable = true;
-				double sum = totalAmount.getValue() + product.getPublicPrice();
+				double sum = totalAmount.getValue() + product.getPublicPrice().getValue();
 				totalAmount.setValue(sum); 
 				product.setStock(product.getStock() - 1);
 				// if no more stock, set as not available to sale

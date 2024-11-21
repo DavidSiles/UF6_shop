@@ -44,8 +44,8 @@ public class SaxReader extends DefaultHandler {
         switch (qName) {
             case "WholesalerPrise":
                 double wholesalerPrice = Double.parseDouble(buffer.toString());
-                product.setWholesalerPrice(wholesalerPrice);
-                product.setPublicPrice(wholesalerPrice * 2);
+                product.setWholesalerPrice(new Amount(wholesalerPrice));
+                product.setPublicPrice(new Amount(wholesalerPrice * 2));
                 break;
             case "Stock":
                 int stock = Integer.parseInt(buffer.toString());

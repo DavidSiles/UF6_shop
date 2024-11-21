@@ -25,15 +25,15 @@ public class JaxbUnMarshaller {
 		}
 
 		// print products
-		if (products == null) {
-			System.out.println("Error unmarshalling");
-			return null;
-		}else {
-			for (Product p : products.getProducts()) {
-				System.out.println(p);
-			}
-			return products.getProducts();
-		}
+		if (products == null || products.getProducts() == null) {
+            System.out.println("Error unmarshalling");
+            return null;
+        } else {
+            for (Product p : products.getProducts()) {
+                System.out.println(p);
+            }
+            return new ArrayList<>(products.getProducts());
+        }
 		
 	}
 }
