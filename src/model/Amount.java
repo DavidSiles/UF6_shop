@@ -1,45 +1,37 @@
 package model;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.*;
 
-@XmlRootElement(name = "price")
+@XmlRootElement(name = "wholesalerPrise")
 public class Amount {
-	
-	private double value;
-	
-	@XmlAttribute(name = "currency")
-	final static String CURRENCY = "€";
-	
-	public Amount() {
-        super();
+    private double value;
+
+    @XmlAttribute(name = "currency")
+    private final static String currency = "€";
+
+    public Amount() {
+        // Constructor por defecto
     }
-	
-	public Amount(double value) {
-		super();
-		this.value = value;
-	}
-	
-	@XmlValue
-	public double getValue() {
-		return value;
-	}
-	
-	public void setValue(double value) {
-		this.value = value;
-	}
-	
 
-	public static String getCurrency() {
-		return CURRENCY;
-	}
+    public Amount(double value) {
+        this.value = value;
+    }
 
-	@Override
-	public String toString() {
-		return value + CURRENCY;
-	}
-	
-	
-	
+    @XmlValue
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public static String getCurrency() {
+        return currency;
+    }
+
+    @Override
+    public String toString() {
+        return value + currency;
+    }
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Products>
 	<product name="Manzana">
-		<WholesalerPrise currency="€">10.00</WholesalerPrise>
-		<Stock>10</Stock>
+		<wholesalerPrise currency="€">10.00</wholesalerPrise>
+		<stock>10</stock>
 	</product>
 	<product name="Pera">
-		<WholesalerPrise currency="€">20.00</WholesalerPrise>
-		<Stock>20</Stock>
+		<wholesalerPrise currency="€">20.00</wholesalerPrise>
+		<stock>20</stock>
 	</product>
 	<product name="Hamburguesa">
-		<WholesalerPrise currency="€">30.00</WholesalerPrise>
-		<Stock>30</Stock>
+		<wholesalerPrise currency="€">30.00</wholesalerPrise>
+		<stock>30</stock>
 	</product>
 	<product name="Fresa">
-		<WholesalerPrise currency="€">5.00</WholesalerPrise>
-		<Stock>20</Stock>
+		<wholesalerPrise currency="€">5.00</wholesalerPrise>
+		<stock>20</stock>
 	</product>
 </Products>
