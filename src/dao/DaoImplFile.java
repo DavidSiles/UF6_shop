@@ -53,7 +53,7 @@ public class DaoImplFile implements Dao{
 		switch (i) { case 0: name = data[1]; break; case 1: wholesalerPrice =
 		Double.parseDouble(data[1]); break; case 2: stock =
 		Integer.parseInt(data[1]); break; default: break; } } inventoryLoader.add(new
-		Product(name, new Amount(wholesalerPrice), true, stock)); }
+		Product(name, new Amount(wholesalerPrice), stock, true)); }
 	  
 		} catch (FileNotFoundException e) {
 		System.out.println("Archivo de inventario no encontrado.");

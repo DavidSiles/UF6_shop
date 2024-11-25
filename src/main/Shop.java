@@ -137,10 +137,10 @@ public class Shop {
 	 */
 	public void loadInventory() {
 		
-		addProduct(new Product("Manzana", new Amount(10.00), true, 10));
-		addProduct(new Product("Pera", new Amount(20.00), true, 20));
-		addProduct(new Product("Hamburguesa", new Amount(30.00), true, 30));
-		addProduct(new Product("Fresa", new Amount(5.00), true, 20));
+		addProduct(new Product("Manzana", new Amount(10.00), 10, true));
+		addProduct(new Product("Pera", new Amount(20.00), 20, true));
+		addProduct(new Product("Hamburguesa", new Amount(30.00), 30, true));
+		addProduct(new Product("Fresa", new Amount(5.00), 20, true));
 		
 	}
 	
@@ -271,7 +271,7 @@ public class Shop {
 				errorMethot = false;
 			}else {
 				errorMethot = true;
-				addProduct(new Product(name, price, true, stock));
+				addProduct(new Product(name, price, stock, true));
 			}
 		/*
 		*	System.out.print("Precio mayorista: ");
@@ -386,7 +386,7 @@ public class Shop {
 			Product product = findProduct(name);
 			boolean productAvailable = false;
 
-			if (product != null && product.isAvailable()) {
+			if (product != null && product.getAvailable()) {
 				productAvailable = true;
 				double sum = totalAmount.getValue() + product.getPublicPrice().getValue();
 				totalAmount.setValue(sum); 

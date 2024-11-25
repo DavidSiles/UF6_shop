@@ -28,7 +28,7 @@ public class SaxReader extends DefaultHandler {
         switch (qName) {
             case "product":
                 String productName = attributes.getValue("name");
-                product = new Product(productName, new Amount(0), true, 0);
+                product = new Product(productName, new Amount(0), 0, true);
                 break;
             case "WholesalerPrise":
                 buffer.setLength(0);

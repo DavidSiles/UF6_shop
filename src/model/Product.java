@@ -3,7 +3,7 @@ package model;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "product")
-@XmlType(propOrder = {"available","wholesalerPrice", "publicPrice", "stock"}) // Orden en el XML
+@XmlType(propOrder = {"available", "wholesalerPrice", "publicPrice", "stock"}) // Orden en el XML
 public class Product {
     private int id;
     private String name;
@@ -13,7 +13,7 @@ public class Product {
     private int stock;
     private static int totalProducts;
 
-    public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
+    public Product(String name, Amount wholesalerPrice,  int stock, boolean available) {
         this.id = ++totalProducts;
         this.name = name;
         this.wholesalerPrice = wholesalerPrice;
@@ -45,7 +45,7 @@ public class Product {
     }
 
     @XmlElement
-    public boolean isAvailable() {
+    public boolean getAvailable() {    	
         return available;
     }
 
@@ -79,6 +79,7 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+        this.available = stock >= 0;
     }
     
     public void expire() {
@@ -87,6 +88,6 @@ public class Product {
     
     @Override
     public String toString() {
-        return "Product [name=" + name + ", publicPrice=" + publicPrice + ", stock=" + stock + "]" + wholesalerPrice;
+        return "Product [name=" + name + ", publicPrice=" + publicPrice + ", stock=" + stock + "]";
     }
 }
