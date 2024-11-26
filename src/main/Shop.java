@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.activation.ActivationDataFlavor;
+
 import dao.DaoImplFile;
 import dao.DaoImplJaxb;
 import dao.DaoImplXml;
@@ -270,8 +272,13 @@ public class Shop {
 				//System.out.println("The product alredy exists");
 				errorMethot = false;
 			}else {
+				if(stock <= 0) {
+					addProduct(new Product(name, price, stock, false));
+				}else {
+					addProduct(new Product(name, price, stock, true));
+				}
+				
 				errorMethot = true;
-				addProduct(new Product(name, price, stock, true));
 			}
 		/*
 		*	System.out.print("Precio mayorista: ");

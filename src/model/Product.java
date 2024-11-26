@@ -79,7 +79,7 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
-        this.available = stock >= 0;
+        this.available = stock > 0;
     }
     
     public void expire() {
