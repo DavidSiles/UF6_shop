@@ -46,7 +46,7 @@ private ArrayList<Product> copyInventory;
 		if (this.copyInventory != null) {
 	    Element products = document.createElement("products");
 	    
-	    	products.setAttribute("total", String.valueOf(copyInventory.size()));
+	    products.setAttribute("total", String.valueOf(Product.totalProducts));
 	    document.appendChild(products);
 	    
 	    // Loop through inventory array

@@ -11,7 +11,7 @@ public class Product {
     private Amount wholesalerPrice;
     private Amount publicPrice;
     private int stock;
-    private static int totalProducts;
+    public static int totalProducts;
 
     public Product(String name, Amount wholesalerPrice,  int stock, boolean available) {
         this.id = ++totalProducts;
