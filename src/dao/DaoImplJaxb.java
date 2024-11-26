@@ -32,9 +32,13 @@ public class DaoImplJaxb implements Dao{
 
 	@Override
 	public ArrayList<Product> getInventory() {
-	    ArrayList<Product> products = null;    
-	    JaxbUnMarshaller unMarshaller = new JaxbUnMarshaller();
-	    products = unMarshaller.init();
+		ArrayList<Product> products = null;    
+	    try {
+			JaxbUnMarshaller unMarshaller = new JaxbUnMarshaller();
+		    products = unMarshaller.init();
+	    }catch (Exception e) {
+			e.printStackTrace();
+		}
 	    return products;
 	}
 
@@ -45,9 +49,8 @@ public class DaoImplJaxb implements Dao{
 		try {
 			ProductList products = new ProductList(inventory);
 			JaxbMarshaller marshaller = new JaxbMarshaller();
-			marshaller.init(products);
-			
-			return true;
+			return marshaller.init(products);
+
 		}catch (Exception e) {
 			e.printStackTrace();
 			return false;

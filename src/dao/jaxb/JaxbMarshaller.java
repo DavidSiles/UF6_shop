@@ -12,7 +12,7 @@ import model.ProductList;
 
 public class JaxbMarshaller {
 
-	public void init (ProductList products) {
+	public boolean init (ProductList products) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(ProductList.class);
 			Marshaller marshaller = context.createMarshaller();
@@ -20,8 +20,10 @@ public class JaxbMarshaller {
 			System.out.println("marshalling... ");
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			marshaller.marshal(products, new File("xml/inventory_"+date+".xml"));
+			return true;
 		} catch (JAXBException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
