@@ -69,15 +69,9 @@ private ArrayList<Product> copyInventory;
 	        stock.setTextContent(String.valueOf(productItem.getStock()));
 	        product.appendChild(stock);	        
 	    }
-	    if(generateXml()) {
-	    	return true;
-	    }else {
-	    	return false;
-	    }
-		}else {
-	    	return false;
-	    }
-	    
+	
+		}
+		return	generateXml();
 	}
 
 	
