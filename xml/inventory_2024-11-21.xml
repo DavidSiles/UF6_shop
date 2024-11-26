@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Products total="4">
+<products total="4">
     <product id="1" name="Manzana">
         <available>false</available>
         <Stock>10</Stock>
@@ -16,4 +16,4 @@
         <available>false</available>
         <Stock>20</Stock>
     </product>
-</Products>
+</products>

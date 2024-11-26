@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Products>
+<products>
 	<product name="Manzana">
 		<wholesalerPrise currency="Euro">10.00</wholesalerPrise>
 		<stock>10</stock>
@@ -16,4 +16,4 @@
 		<wholesalerPrise currency="Euro">5.00</wholesalerPrise>
 		<stock>20</stock>
 	</product>
-</Products>
+</products>
