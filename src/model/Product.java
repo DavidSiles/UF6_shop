@@ -63,7 +63,7 @@ public class Product {
         this.available = available;
     }
 
-    @XmlElement(name = "wholesalerPrise")
+    @XmlElement(name = "wholesalerPrice")
     public Amount getWholesalerPrice() {    	
         return wholesalerPrice;
     }
