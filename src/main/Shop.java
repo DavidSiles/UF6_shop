@@ -185,9 +185,11 @@ public class Shop {
 	// Read inventory file or create a new one if not exist
 	public void readInventory() {
 
-		dao.connect(); 
-		System.out.println("Conectado");  
+		dao.connect();  
 		inventory = dao.getInventory();
+		for(Product product : inventory) {
+			System.out.println(product);
+		}
 		dao.disconnect();
 	}
 	

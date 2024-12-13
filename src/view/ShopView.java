@@ -188,14 +188,14 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	            }else {
 	            	System.err.println("Error to export: " + exportResult);
 		            JOptionPane.showMessageDialog(this,
-							"ERROR: product not exist",
-							"Error to delete", JOptionPane.ERROR_MESSAGE);
+							"ERROR: can not write inventory",
+							"Error Writing", JOptionPane.ERROR_MESSAGE);
 	            }
 	        } catch (Exception error) {
 	            System.err.println("Error to export: " + error.getMessage());
 	            JOptionPane.showMessageDialog(this,
-						"ERROR: product not exist",
-						"Error to delete", JOptionPane.ERROR_MESSAGE);
+						"ERROR: can not write inventory",
+						"Error Writing", JOptionPane.ERROR_MESSAGE);
 	        }
 		}
 	}
