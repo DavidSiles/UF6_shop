@@ -29,6 +29,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	private JButton addStockButton;
 	private JButton deleteProductButton;
 	private JButton inventoryButon;
+	private JButton showInventoryButon;
 	private Shop shop = new Shop();
 	private int option;
 	
@@ -86,6 +87,19 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		inventoryButon.addActionListener(this);
 		inventoryButon.addKeyListener(this);
 		inventoryButon.setFocusable(false);
+		
+		showInventoryButon = new JButton("5.Inventory");
+		showInventoryButon.setBounds(30, 200, 150, 50);
+		contentPane.add(showInventoryButon);
+		showInventoryButon.addActionListener(this);
+		showInventoryButon.addKeyListener(this);
+		showInventoryButon.setFocusable(false);
+		showInventoryButon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		
 		
 	}
 	
@@ -163,19 +177,22 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 
 	
 	public void actionPerformed(ActionEvent e) {
-		ProductView addproductView = new ProductView();
+		ProductView addProductView = new ProductView();
 		if(countCageButton == e.getSource()) {
 			option = 1;
 			openCashView(option, shop);
 		}else if(addNewProductButton == e.getSource()) {
 			option = 2;
-			addproductView.openProductView(option, shop);
+			addProductView.openProductView(option, shop);
 		}else if(addStockButton == e.getSource()) {
 			option = 3;
-			addproductView.openProductView(option, shop);
+			addProductView.openProductView(option, shop);
+		}else if(showInventoryButon == e.getSource()) {
+			option = 5;
+			openInventoryView();
 		}else if(deleteProductButton == e.getSource()) {
 			option = 9;
-			addproductView.openProductView(option, shop);
+			addProductView.openProductView(option, shop);
 		}else if(inventoryButon == e.getSource()) {
 	        option = 0;
 	        try { 
@@ -206,6 +223,13 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		if(option == 1) {
 		    CashView cashView = new CashView(shop, this);
 		    cashView.setVisible(true);
+		}
+	}
+	
+	public void openInventoryView() {
+		if(option == 5) {
+			InventoryView addInventoryView = new InventoryView();
+			addInventoryView.setVisible(true);
 		}
 	}
 	
