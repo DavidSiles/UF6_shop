@@ -82,10 +82,10 @@ public class LoginView extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		try {	
-			int userId = Integer.parseInt(textField.getText());
+			int user = Integer.parseInt(textField.getText());
 			String userPass = textField_1.getText();
-			Employee employee = new Employee(userId, userPass);
-			if(employee.login(userId, userPass) == true) {
+			Employee employee = new Employee(user, userPass);
+			if(employee.login(user, userPass)) {
 				ShopView shopView = new ShopView();
 		        shopView.setVisible(true);
 		        this.dispose();

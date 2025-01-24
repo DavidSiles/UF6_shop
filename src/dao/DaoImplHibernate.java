@@ -33,9 +33,22 @@ public class DaoImplHibernate implements Dao{
 	}
 
 	@Override
-	public Employee getEmployee(int employeeId, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public Employee getEmployee(int user, String password) {
+	    Employee employee = null;
+	    try (Session session = factory.openSession()) {
+	        session.beginTransaction();
+
+	        String hql = "from Employee where user = :user and password = :password";
+	        employee = session.createQuery(hql, Employee.class)
+	                          .setParameter("user", user)
+	                          .setParameter("password", password)
+	                          .uniqueResult();
+
+	        session.getTransaction().commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return employee;
 	}
 
 	@Override

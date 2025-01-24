@@ -2,28 +2,42 @@ package model;
 
 import java.sql.SQLException;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
 
+@Entity
+@Table(name = "Employee")
 public class Employee extends Person {
-
-	private int employeeId;
 	
-	final static int USER = 123;
+	@Id	
+	@Column(name = "user")
+	private int user = 123;
+	
+	@Column(name = "password")
     private String password = "test";
 
-	public Employee(int employeeId, String password) {
+	public Employee(int user, String password) {
 		super(null);
-		this.employeeId = employeeId;
+		this.user = user;
 		this.password = password;
 	}
-
-	public int getEmployeeId() {
-		return employeeId;
+	
+	public Employee() {
+		super(null);
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	
+	public int getUser() {
+		return user;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -33,15 +47,15 @@ public class Employee extends Person {
 	}
 	public boolean login(int user, String password) {
     	
-	// Connect to database data.	
-
-		  DaoImplJDBC dao = new DaoImplJDBC();
-		  
-		  dao.connect(); System.out.println("Conectado");
-		  Employee employee = dao.getEmployee(user, password); 
-		  dao.disconnect();
-		  
-		  if(employee == null) { return false; }else{ return true; }		 
+		// Connect to database data.	
+		//DaoImplJDBC dao = new DaoImplJDBC();
+		DaoImplHibernate dao = new DaoImplHibernate();
+		
+	    dao.connect(); System.out.println("Conectado");
+	    Employee employee = dao.getEmployee(user, password);
+	    dao.disconnect();
+	  
+	    if(employee == null) { return false; }else{ return true; }		 
 		
 		
 	// Simple form of Login.

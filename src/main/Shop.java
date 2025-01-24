@@ -545,18 +545,16 @@ public class Shop {
 	public void initSession(){
 		Scanner sc = new Scanner(System.in);
 		boolean logged;
-		System.out.println("Name User: ");
-		String user = sc.next();
 		do {
 			String name = "";
-			System.out.println("ID User: ");
-			int iduser = sc.nextInt();
+			System.out.println("User: ");
+			int user = sc.nextInt();
 			System.out.println("Password: ");
 			String password = sc.next();
 			
-			Employee employee = new Employee(iduser, password);
+			Employee employee = new Employee(user, password);
 			
-			logged = employee.login(iduser, password);
+			logged = employee.login(user, password);
 			
 		}while(logged == false);
 	}

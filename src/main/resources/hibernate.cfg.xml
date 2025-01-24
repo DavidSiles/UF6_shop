@@ -19,6 +19,7 @@
         <property name="hibernate.current_session_context_class">thread</property>
         
         <!-- Mapeos -->
+        <mapping class="model.Employee"/>
         <mapping class="model.Product"/>
         <!-- <mapping class="model.ProductHistory"/> -->
     </session-factory>

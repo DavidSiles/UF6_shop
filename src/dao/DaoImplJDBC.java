@@ -32,13 +32,14 @@ public class DaoImplJDBC implements Dao {
 		}
 	}
 
-	public Employee getEmployee(int employeeId, String password) {
+	public Employee getEmployee(int user, String password) {
 		
 		Employee employee = null;
-		String query = "SELECT employeeId, employeePassword FROM Employee where employeeId = ? AND employeePassword = ?";
+		int id = 0;
+		String query = "SELECT employeeId, user, employeePassword FROM Employee where employeeId = ? AND employeePassword = ?";
 		try (PreparedStatement ps = conn.prepareStatement(query)) { 
 			// set id to search for
-			ps.setInt(1,employeeId);
+			ps.setInt(1,user);
 			ps.setString(2,password);
 		  	//System.out.println(ps.toString());
 	        try (ResultSet rs = ps.executeQuery()) {
