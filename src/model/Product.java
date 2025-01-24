@@ -1,16 +1,39 @@
 package model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "product")
 @XmlType(propOrder = {"available", "wholesalerPrice", "publicPrice", "stock"}) // Orden en el XML
-public class Product {
+
+@Entity
+@Table(name = "inventory")
+public class Product implements Serializable{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
     private int id;
-    private String name;
+	@Column(name = "available")
     private boolean available;
+	@Column(name = "name")
+    private String name;
+    @Transient
     private Amount wholesalerPrice;
+    @Transient
     private Amount publicPrice;
+    @Column(name = "price")
+    private double price;
+    @Column(name = "stock")
     private int stock;
+    @Transient
     public static int totalProducts = 0;
 
     public Product(String name, Amount wholesalerPrice,  int stock, boolean available) {

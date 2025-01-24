@@ -26,6 +26,7 @@ import java.util.Scanner;
 import javax.activation.ActivationDataFlavor;
 
 import dao.DaoImplFile;
+import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
 import dao.DaoImplXml;
@@ -45,8 +46,8 @@ public class Shop {
 	//private DaoImplFile dao = new DaoImplFile();
 	//private DaoImplXml dao = new DaoImplXml();
 	//private DaoImplJaxb dao = new DaoImplJaxb();
-	private DaoImplJDBC dao = new DaoImplJDBC();
-	
+	//private DaoImplJDBC dao = new DaoImplJDBC();
+	private DaoImplHibernate dao = new DaoImplHibernate();
 	
 	public Shop() {
 		// cash = 0.0; initial cash = 100.00 [CORRECTION]
