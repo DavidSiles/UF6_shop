@@ -21,6 +21,6 @@
         <!-- Mapeos -->
         <mapping class="model.Employee"/>
         <mapping class="model.Product"/>
-        <!-- <mapping class="model.ProductHistory"/> -->
+        <mapping class="model.ProductHistory"/>
     </session-factory>
 </hibernate-configuration>

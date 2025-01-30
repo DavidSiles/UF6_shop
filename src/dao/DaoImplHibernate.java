@@ -1,10 +1,15 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +18,7 @@ import org.hibernate.cfg.Configuration;
 import model.Amount;
 import model.Employee;
 import model.Product;
+import model.ProductHistory;
 
 public class DaoImplHibernate implements Dao{
 
@@ -38,11 +44,7 @@ public class DaoImplHibernate implements Dao{
 	    try (Session session = factory.openSession()) {
 	        session.beginTransaction();
 
-	        String hql = "from Employee where user = :user and password = :password";
-	        employee = session.createQuery(hql, Employee.class)
-	                          .setParameter("user", user)
-	                          .setParameter("password", password)
-	                          .uniqueResult();
+	        employee = session.get(Employee.class, user);
 
 	        session.getTransaction().commit();
 	    } catch (Exception e) {
@@ -64,18 +66,47 @@ public class DaoImplHibernate implements Dao{
 
 	@Override
 	public ArrayList<Product> getInventory() {
+		ArrayList<Product> products = null;
 		try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
-            List<Product> products = session.createQuery("from Product", Product.class).getResultList();
+            
+            EntityManager em = session.getEntityManagerFactory().createEntityManager();
+            TypedQuery<Product> query = em.createQuery("from Product", Product.class);
+            products = (ArrayList<Product>) query.getResultList();
+            
+            
             session.getTransaction().commit();
-
-            return (ArrayList<Product>) products;
-        }
+            
+            return products;
+        }catch (Exception e) {
+        	e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
-		
+		try(Session session = factory.getCurrentSession()) {
+			session.beginTransaction();
+            
+			for(Product product : inventory) {
+				ProductHistory history = new ProductHistory();
+	            history.setIdProducto(product);
+	            history.setAvailable(product.getAvailable());
+	            history.setCreatedAt(LocalDateTime.now());
+	            history.setName(product.getName());
+	            history.setPrice(product.getPublicPrice().getValue());
+	            history.setStock(product.getStock());
+	            
+	            session.save(history);
+			}
+			
+            session.getTransaction().commit();
+
+            return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

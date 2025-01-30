@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.*;
@@ -56,9 +57,16 @@ public class Product implements Serializable{
     }
 
     public Product() {
-        this.id = ++totalProducts; // Constructor por defecto
+        this.id = ++totalProducts;
     }
 
+    @PostLoad
+    private void calculatePrices() {
+        // Se ejecuta después de cargar el objeto desde la DB
+        this.publicPrice = new Amount(this.price); // price = publicPrice
+        this.wholesalerPrice = new Amount(this.price / 2); // wholesalerPrice = price / 2
+    }
+    
     @XmlAttribute(name = "id")
     public int getId() {
         return id;

@@ -18,10 +18,9 @@ public class Employee extends Person {
 	
 	@Id	
 	@Column(name = "user")
-	private int user = 123;
-	
+	private int user;
 	@Column(name = "password")
-    private String password = "test";
+    private String password;
 
 	public Employee(int user, String password) {
 		super(null);
