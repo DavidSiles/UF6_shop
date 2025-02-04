@@ -157,7 +157,22 @@ public class DaoImplHibernate implements Dao{
 
 	@Override
 	public boolean deleteProduct(String name) {
-		// TODO Auto-generated method stub
+		try(Session session = factory.getCurrentSession()) {
+			session.beginTransaction();
+            
+			String hql = "FROM Product WHERE name = :name";
+	        Product product = session.createQuery(hql, Product.class)
+	                                 .setParameter("name", name)
+	                                 .uniqueResult();
+	        
+            session.delete(product);
+            
+            session.getTransaction().commit();
+
+            return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
