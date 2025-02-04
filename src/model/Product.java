@@ -62,9 +62,9 @@ public class Product implements Serializable{
 
     @PostLoad
     private void calculatePrices() {
-        // Se ejecuta después de cargar el objeto desde la DB
         this.publicPrice = new Amount(this.price * 2); // price = publicPrice * 2
         this.wholesalerPrice = new Amount(this.price); // wholesalerPrice = price
+
     }
     
     @XmlAttribute(name = "id")
@@ -134,8 +134,8 @@ public class Product implements Serializable{
 	public void expire() {
 		setAvailable(false);
 	}
-    
-    @Override
+
+	@Override
     public String toString() {
         return "Product [name=" + name + ", publicPrice=" + publicPrice + ", stock=" + stock + "]";
     }

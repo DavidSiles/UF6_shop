@@ -112,7 +112,24 @@ public class DaoImplHibernate implements Dao{
 
 	@Override
 	public boolean addProduct(String name, Amount price, int stock, boolean avaiblable) {
-		// TODO Auto-generated method stub
+		try(Session session = factory.getCurrentSession()) {
+			session.beginTransaction();
+            
+			Product newProduct = new Product();
+			newProduct.setAvailable(avaiblable);
+			newProduct.setName(name);
+			newProduct.setWholesalerPrice(price);
+			newProduct.setPrice(price.getValue());
+			newProduct.setStock(stock);
+            
+            session.save(newProduct);
+			
+            session.getTransaction().commit();
+
+            return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
