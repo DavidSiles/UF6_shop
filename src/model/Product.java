@@ -63,8 +63,8 @@ public class Product implements Serializable{
     @PostLoad
     private void calculatePrices() {
         // Se ejecuta después de cargar el objeto desde la DB
-        this.publicPrice = new Amount(this.price); // price = publicPrice
-        this.wholesalerPrice = new Amount(this.price / 2); // wholesalerPrice = price / 2
+        this.publicPrice = new Amount(this.price * 2); // price = publicPrice * 2
+        this.wholesalerPrice = new Amount(this.price); // wholesalerPrice = price
     }
     
     @XmlAttribute(name = "id")
@@ -123,7 +123,15 @@ public class Product implements Serializable{
         this.available = stock > 0;
     }
     
-    public void expire() {
+    public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void expire() {
 		setAvailable(false);
 	}
     
