@@ -314,10 +314,10 @@ public class Shop {
 			* int stock = scanner.nextInt();
 			*/
 		// update stock product
-		//plus the stock that you write [CORRECTION]
-			dao.addStockProduct(name, stock);
+		//plus the stock that you write [CORRECTION]			
 			product.setStock(product.getStock() + stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
+			dao.addStockProduct(name, stock);
 			errorMethot = true;
 			//System.out.println(product.getStock()); Stock before change
 		} else {
