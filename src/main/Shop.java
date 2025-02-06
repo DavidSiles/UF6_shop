@@ -487,10 +487,10 @@ public class Shop {
 		Product product = findProduct(name);
 		
 		if(product != null) {
-			dao.connect();
-			dao.deleteProduct(name);
+			dao.connect();			
 			inventory.remove(product);
 			System.out.println(product.getName()+" was deleted");
+			dao.deleteProduct(name);
 			//Rewrite the inventory without the product
 			errorMethot = true;
 			dao.disconnect();
