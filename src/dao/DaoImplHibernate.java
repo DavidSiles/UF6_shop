@@ -157,23 +157,27 @@ public class DaoImplHibernate implements Dao{
 
 	@Override
 	public boolean deleteProduct(String name) {
-		try(Session session = factory.getCurrentSession()) {
-			session.beginTransaction();
-            
-			String hql = "FROM Product WHERE lower(name) = lower(:name)";
-	        Product product = session.createQuery(hql, Product.class)
-	                                 .setParameter("name", name)
-	                                 .uniqueResult();
-	        
-            session.delete(product);
-            
-            session.getTransaction().commit();
+	    try (Session session = factory.getCurrentSession()) {
+	        session.beginTransaction();
 
-            return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	        // Buscar el producto
+	        String hql = "FROM Product WHERE lower(name) = lower(:name)";
+	        Product product = session.createQuery(hql, Product.class)
+	                                 .setParameter("name", name.toLowerCase()) // Asegurar minúsculas
+	                                 .uniqueResult();
+
+	        if (product != null) { // Verificar que el producto exista
+	            session.delete(product);
+	            session.getTransaction().commit();
+	            return true;
+	        } else {
+	            session.getTransaction().rollback(); // No eliminar nada si el producto no existe
+	            System.out.println("Producto no encontrado: " + name);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 
 }
