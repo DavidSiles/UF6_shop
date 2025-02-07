@@ -138,7 +138,7 @@ public class DaoImplHibernate implements Dao{
 		try(Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
             
-			String hql = "FROM Product WHERE name = :name";
+			String hql = "FROM Product WHERE lower(name) = lower(:name)";
 	        Product product = session.createQuery(hql, Product.class)
 	                                 .setParameter("name", name)
 	                                 .uniqueResult();
@@ -160,7 +160,7 @@ public class DaoImplHibernate implements Dao{
 		try(Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
             
-			String hql = "FROM Product WHERE name = :name";
+			String hql = "FROM Product WHERE lower(name) = lower(:name)";
 	        Product product = session.createQuery(hql, Product.class)
 	                                 .setParameter("name", name)
 	                                 .uniqueResult();
