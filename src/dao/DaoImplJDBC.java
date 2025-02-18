@@ -98,9 +98,7 @@ public class DaoImplJDBC implements Dao {
 		
 	    String insertQuery = "INSERT INTO historical_inventory (id_producto, name, wholesalerPrice, available, stock, created_at) "
 	            + "VALUES (?, ?, ?, ?, ?, ?)";
-	    
-	    String updateQuery = "UPDATE historical_inventory SET id_producto = ?, wholesalerPrice = ?, available = ?, stock = ?, created_at = ? "
-	            + "WHERE name = ?";
+	   
 
 	    Set<String> existingProductNames = new HashSet<>();
 	    String loadExistingNamesQuery = "SELECT name FROM historical_inventory";
@@ -114,24 +112,12 @@ public class DaoImplJDBC implements Dao {
 	        return false;
 	    }
 
-	    try (PreparedStatement insertPs = conn.prepareStatement(insertQuery);
-	         PreparedStatement updatePs = conn.prepareStatement(updateQuery)) {
+	    try (PreparedStatement insertPs = conn.prepareStatement(insertQuery)) {
 
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	        String currentTime = LocalDateTime.now().format(formatter);
 
 	        for (Product product : inventory) {
-	            if (existingProductNames.contains(product.getName())) {
-	                // Actualizar el registro si el nombre ya existe
-	                updatePs.setInt(1, product.getId());
-	                updatePs.setDouble(2, product.getWholesalerPrice().getValue());
-	                updatePs.setBoolean(3, product.getAvailable());
-	                updatePs.setInt(4, product.getStock());
-	                updatePs.setString(5, currentTime);
-	                updatePs.setString(6, product.getName());
-
-	                updatePs.addBatch();
-	            } else {
 	                // Insertar el registro si el nombre no existe
 	                insertPs.setInt(1, product.getId());
 	                insertPs.setString(2, product.getName());
@@ -141,11 +127,8 @@ public class DaoImplJDBC implements Dao {
 	                insertPs.setString(6, currentTime);
 	                
 	                insertPs.addBatch();
-	            }
 	        }
 
-	        // Ejecutar los lotes de inserciones y actualizaciones
-	        updatePs.executeBatch();
 	        insertPs.executeBatch();
 
 	        return true;
