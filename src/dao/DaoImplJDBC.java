@@ -197,6 +197,12 @@ public class DaoImplJDBC implements Dao {
 		}
 	}
 
+	@Override
+	public boolean updateProduct(Product product) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 }
