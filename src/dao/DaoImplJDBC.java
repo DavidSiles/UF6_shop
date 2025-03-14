@@ -64,8 +64,7 @@ public class DaoImplJDBC implements Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+				
 	}
 
 	@Override

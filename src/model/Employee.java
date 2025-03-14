@@ -2,24 +2,25 @@ package model;
 
 import java.sql.SQLException;
 
-import javax.persistence.Column;
+/*import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Table;*/
 
-import dao.DaoImplHibernate;
+//import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
+import dao.DaoImplMongoDB;
 
-@Entity
-@Table(name = "Employee")
+//@Entity
+//@Table(name = "Employee")
 public class Employee extends Person {
 	
-	@Id	
-	@Column(name = "user")
+	//@Id	
+	//@Column(name = "user")
 	private int user;
-	@Column(name = "password")
+	//@Column(name = "password")
     private String password;
 
 	public Employee(int user, String password) {
@@ -44,11 +45,13 @@ public class Employee extends Person {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public boolean login(int user, String password) {
     	
 		// Connect to database data.	
 		//DaoImplJDBC dao = new DaoImplJDBC();
-		DaoImplHibernate dao = new DaoImplHibernate();
+		//DaoImplHibernate dao = new DaoImplHibernate();
+		DaoImplMongoDB dao = new DaoImplMongoDB();
 		
 	    dao.connect(); System.out.println("Conectado");
 	    Employee employee = dao.getEmployee(user, password);
