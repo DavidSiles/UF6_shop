@@ -26,9 +26,10 @@ import java.util.Scanner;
 import javax.activation.ActivationDataFlavor;
 
 import dao.DaoImplFile;
-import dao.DaoImplHibernate;
+//import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
+import dao.DaoImplMongoDB;
 import dao.DaoImplXml;
 import dao.xml.SaxReader;
 
@@ -47,7 +48,8 @@ public class Shop {
 	//private DaoImplXml dao = new DaoImplXml();
 	//private DaoImplJaxb dao = new DaoImplJaxb();
 	//private DaoImplJDBC dao = new DaoImplJDBC();
-	private DaoImplHibernate dao = new DaoImplHibernate();
+	//private DaoImplHibernate dao = new DaoImplHibernate();
+	private DaoImplMongoDB dao = new DaoImplMongoDB();
 	
 	public Shop() {
 		// cash = 0.0; initial cash = 100.00 [CORRECTION]
@@ -314,10 +316,12 @@ public class Shop {
 			* int stock = scanner.nextInt();
 			*/
 		// update stock product
-		//plus the stock that you write [CORRECTION]			
+		//plus the stock that you write [CORRECTION]		
 			product.setStock(product.getStock() + stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
-			dao.addStockProduct(name, stock);
+			
+			//dao.addStockProduct(name, stock);
+			dao.updateProduct(product);
 			errorMethot = true;
 			//System.out.println(product.getStock()); Stock before change
 		} else {
